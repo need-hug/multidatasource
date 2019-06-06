@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.saas.sync.mapper.UserMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.saas.sync.entity.UserMember" >
+    <id column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="ship_code" property="shipCode" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="id_number" property="idNumber" jdbcType="VARCHAR" />
+    <result column="source_id" property="sourceId" jdbcType="BIGINT" />
+    <result column="entry_integral" property="entryIntegral" jdbcType="INTEGER" />
+    <result column="shop_integral" property="shopIntegral" jdbcType="INTEGER" />
+    <result column="recommend_integral" property="recommendIntegral" jdbcType="INTEGER" />
+    <result column="activity_integral" property="activityIntegral" jdbcType="INTEGER" />
+    <result column="total_integral" property="totalIntegral" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <select id="selectUserMember" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+      member_id,
+      username,
+      sex,
+      phone,
+      openid,
+      ship_code,
+      real_name,
+      id_number,
+      source_id,
+      entry_integral,
+      shop_integral,
+      recommend_integral,
+      activity_integral,
+      total_integral
+  FROM
+      user_member
+  WHERE
+      1 = 1
+      <if test="memberId != null">
+          and member_id=#{memberId}
+      </if>
+      <if test="username != null">
+          and username=#{username}
+      </if>
+      <if test="phone !=null">
+          and phone=#{phone}
+      </if>
+      <if test="realName != null">
+          and real_name=#{realName}
+      </if>
+      <if test="idNumber != null">
+          and id_number=#{idNumber}
+      </if>
+      <if test="openid != null">
+        and openid=#{openid}
+      </if>
+      <if test="nameOrPhone != null">
+        and (real_name like concat(#{nameOrPhone},'%') or real_name like concat('%',#{nameOrPhone}) or phone =#{nameOrPhone})
+      </if>
+  </select>
+
+  <insert id="insertUserMember" parameterType="com.saas.sync.entity.UserMember" >
+    insert into user_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="shipCode != null" >
+        ship_code,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="idNumber != null" >
+        id_number,
+      </if>
+      <if test="sourceId != null" >
+        source_id,
+      </if>
+      <if test="entryIntegral != null" >
+        entry_integral,
+      </if>
+      <if test="shopIntegral != null" >
+        shop_integral,
+      </if>
+      <if test="recommendIntegral != null" >
+        recommend_integral,
+      </if>
+      <if test="activityIntegral != null" >
+        activity_integral,
+      </if>
+      <if test="totalIntegral != null" >
+        total_integral,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        #{openid},
+      </if>
+      <if test="shipCode != null" >
+        #{shipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null" >
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null" >
+        #{sourceId,jdbcType=BIGINT},
+      </if>
+      <if test="entryIntegral != null" >
+        #{entryIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="shopIntegral != null" >
+        #{shopIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="recommendIntegral != null" >
+        #{recommendIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="activityIntegral != null" >
+        #{activityIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="totalIntegral != null" >
+        #{totalIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insertUserMemberBatch" parameterType="com.saas.sync.entity.UserMember" >
+    insert into user_member (member_id, username, sex,
+      phone, openid, ship_code,
+      real_name, id_number, source_id,
+      entry_integral, shop_integral, recommend_integral,
+      activity_integral, total_integral, is_del,
+      create_time, modify_time)
+    values
+    <foreach collection="list" index="index" item="member" separator=",">
+    (#{member.memberId,jdbcType=VARCHAR}, #{member.username,jdbcType=VARCHAR}, #{member.sex,jdbcType=TINYINT},
+      #{member.phone,jdbcType=VARCHAR}, #{member.openid,jdbcType=VARCHAR}, #{member.shipCode,jdbcType=VARCHAR},
+      #{member.realName,jdbcType=VARCHAR}, #{member.idNumber,jdbcType=VARCHAR}, #{member.sourceId,jdbcType=BIGINT},
+      #{member.entryIntegral,jdbcType=INTEGER}, #{member.shopIntegral,jdbcType=INTEGER}, #{member.recommendIntegral,jdbcType=INTEGER},
+      #{member.activityIntegral,jdbcType=INTEGER}, #{member.totalIntegral,jdbcType=INTEGER}, #{member.isDel,jdbcType=TINYINT},
+      #{member.createTime,jdbcType=TIMESTAMP}, #{member.modifyTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+
+  <update id="updateUserMember" parameterType="com.saas.sync.entity.UserMember" >
+    update user_member
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        openid  = #{openid},
+      </if>
+      <if test="shipCode != null" >
+        ship_code = #{shipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null" >
+        id_number = #{idNumber,jdbcType=VARCHAR},
+      </if>
+
+      <if test="sourceId != null" >
+        source_id = #{sourceId,jdbcType=BIGINT},
+      </if>
+      <if test="entryIntegral != null" >
+        entry_integral = #{entryIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="shopIntegral != null" >
+        shop_integral = #{shopIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="recommendIntegral != null" >
+        recommend_integral = #{recommendIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="activityIntegral != null" >
+        activity_integral = #{activityIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="totalIntegral != null" >
+        total_integral = #{totalIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectMemberBirthdayCount" parameterType="map" resultType="java.lang.Integer">
+      select count(1) from user_member where 1=1 and member_id in
+      (select member_id from `order`  where 1=1
+      <if test="storeIds !=null">
+        AND store_id IN
+        <foreach collection="storeIds" index="index" item="storeId" open="(" separator="," close=")">
+          #{storeId}
+        </foreach>
+      </if>
+      GROUP BY member_id)
+      and substring(id_number,11,2) =date_format(DATE_SUB(curdate(), INTERVAL 0 MONTH), '%m')
+  </select>
+
+  <update id="updateIntegral" parameterType="com.saas.sync.entity.UserMember" >
+    update user_member
+    <set >
+      <if test="entryIntegral != null" >
+        entry_integral = #{entryIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="shopIntegral != null" >
+        shop_integral = #{shopIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="recommendIntegral != null" >
+        recommend_integral = #{recommendIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="activityIntegral != null" >
+        activity_integral = #{activityIntegral,jdbcType=INTEGER},
+      </if>
+      <if test="totalIntegral != null" >
+        total_integral = #{totalIntegral,jdbcType=INTEGER},
+      </if>
+    </set>
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>
